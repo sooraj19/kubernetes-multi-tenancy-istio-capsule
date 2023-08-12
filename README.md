@@ -1,0 +1,1 @@
+# kubernetes-multi-tenancy-istio-capsule
