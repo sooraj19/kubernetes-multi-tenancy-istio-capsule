@@ -1,0 +1,35 @@
+namespaces:
+  kube-system:
+  prometheus:
+  grafana:
+
+helmRepos:
+  prometheus-community: https://prometheus-community.github.io/helm-charts
+  grafana: https://grafana.github.io/helm-charts
+  metrics-server: https://kubernetes-sigs.github.io/metrics-server
+
+apps:
+  metrics-server:
+    namespace: kube-system
+    enabled: true
+    chart: metrics-server/metrics-server
+    version: 3.11.0 # app version 0.6.4
+    name: metrics-server
+    valuesFile: values/metrics-server.yaml
+
+  prometheus:
+    namespace: prometheus
+    enabled: true
+    chart: prometheus-community/prometheus
+    version: 23.3.0 # prometheus version v2.46.0
+    name: prometheus
+
+  grafana:
+    namespace: grafana
+    enabled: true
+    chart: grafana/grafana
+    version: 6.58.9
+    name: grafana
+    setString:
+      adminPassword: grafana-admin
+      persistence.enabled: true

@@ -1,0 +1,30 @@
+----- CAPSULE cluster ----
+Step 1: create kind cluster
+kind get clusters
+kind create cluster --config=cluster.yaml --name capsule
+
+Step 2: install nginx ingress:
+kubectl apply -f ingress-nginx.yaml
+
+Step 3: apply helmsman common components
+helmsman -f applications.yaml --apply
+
+Step 4: configure grafana
+ - port forward grafana pod
+ - add prometheus data source - http://prometheus-server.prometheus
+ - import grafana dasboards - 10856 and 15760
+
+Step 5: leave for 5 mins and then capture data points
+
+Step 6: install capsule
+    
+Step 7: leave for 5 mins and then capture data points
+
+Step 8: deploy the test services and enable istio injection on the namespaces
+    
+Step 9: run tests using locust
+locust runs:
+    - 10 users, span rate 0.1, 5m
+    - 20 users, span rate 0.1, 30m
+    
+step 10: capture data points

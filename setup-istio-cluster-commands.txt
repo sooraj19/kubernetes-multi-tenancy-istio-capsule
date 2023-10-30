@@ -1,0 +1,36 @@
+----- ISTIO cluster ----
+Step 1: create kind cluster
+kind get clusters
+kind create cluster --config=cluster.yaml --name istio
+
+Step 2: install nginx ingress:
+kubectl apply -f ingress-nginx.yaml
+
+Step 3: apply helmsman common components
+helmsman -f applications.yaml --apply
+
+Step 4: configure grafana
+ - port forward grafana pod
+ - add prometheus data source - http://prometheus-server.prometheus
+ - import grafana dasboards - 10856 and 15760
+
+Step 5: leave for 5 mins and then capture data points
+
+Step 6: install istio
+    - steps as per - https://istio.io/latest/docs/setup/getting-started/#download
+    - istioctl install --set profile=minimal -y
+    (profile details - https://istio.io/latest/docs/setup/additional-setup/config-profiles/)
+
+Step 7: leave for 5 mins and then capture data points
+
+Step 8: deploy the test services and enable istio injection on the namespaces
+    - kubectl label namespace tenant1 istio-injection=enabled
+    - kubectl label namespace tenant2 istio-injection=enabled
+
+Step 9: run tests using locust
+locust runs:
+    - 1 user, span rate 1
+    - 10 users, span rate 0.1
+    - 30 users, span rate 0.1
+
+step 10: capture data points

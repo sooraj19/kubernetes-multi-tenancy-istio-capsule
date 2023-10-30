@@ -1,0 +1,69 @@
+Deployment steps:
+
+Step 1: create kind cluster
+kind get clusters
+kind create cluster --config=cluster.yaml --name sooraj-test
+
+Step 2: install nginx ingress:
+kubectl apply -f ingress-nginx.yaml
+
+Step 3: apply helmsman common components
+helmsman -f applications.yaml --apply
+
+Step 4: configure grafana
+ - port forward grafana pod
+ - add prometheus data source - http://prometheus-server.prometheus
+ - import grafana dasboards - 10856 and 15760
+
+Step 5: apply the test service
+kubectl apply -f echo-server.yaml
+
+References:
+Grafana setup:
+prometheus server url: http://prometheus-server.prometheus
+
+working dashboards with kind:
+https://grafana.com/grafana/dashboards/10856-k8-cluster/ - 10856
+https://grafana.com/grafana/dashboards/15760-kubernetes-views-pods/ - 15760
+
+Istio:
+resource requirements: https://istio.io/latest/docs/setup/platform-setup/minikube/
+installing prometheus grafana: https://blog.marcnuri.com/prometheus-grafana-setup-minikube
+https://medium.com/kubernetes-tutorials/monitoring-your-kubernetes-deployments-with-prometheus-5665eda54045
+Setup REST monitoring: https://www.youtube.com/watch?v=VjFFzGFyVlY
+https://docs.nginx.com/nginx-ingress-controller/logging-and-monitoring/prometheus/
+
+https://kubernetes.github.io/ingress-nginx/user-guide/monitoring/#prometheus-and-grafana-installation-using-service-monitors
+
+kind:
+https://kind.sigs.k8s.io/docs/user/quick-start/#installation
+
+cluster config to work with ingress:
+https://kind.sigs.k8s.io/docs/user/configuration/
+
+prom-grafana persistence:
+https://faun.pub/integrating-prometheus-and-grafana-on-kubernetes-and-making-their-data-persistent-96f834979f5f
+
+echo-server:
+https://ealenn.github.io/Echo-Server/pages/quick-start/kubernetes.html
+
+istio multi-tenancy:
+https://istio.io/latest/blog/2018/soft-multitenancy/
+
+deploy services with istio:
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-istio-with-kubernetes
+
+Minikube notes:
+minikube:
+minikube delete -p tools-test
+minikube stop -p tools-test
+minikube start -p tools-test --extra-config=kubelet.housekeeping-interval=10s
+
+enable metrics-server:
+minikube -p tools-test addons enable metrics-server
+minikube -p tools-test addons enable dashboard
+minikube -p tools-test dashboard --url
+
+kind nginx warning:
+https://github.com/kubernetes/ingress-nginx/issues/10281
+
