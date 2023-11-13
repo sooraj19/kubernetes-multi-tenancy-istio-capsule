@@ -160,3 +160,8 @@ cython_debug/
 #.idea/
 passwords.txt
 istio-1.19.0/
+
+# capsule test user certs and kubeconfigs
+*.crt
+*.key
+*.kubeconfig

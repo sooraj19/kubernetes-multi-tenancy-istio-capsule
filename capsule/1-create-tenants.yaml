@@ -1,0 +1,17 @@
+apiVersion: capsule.clastix.io/v1beta2
+kind: Tenant
+metadata:
+  name: tenant1
+spec:
+  owners:
+    - name: tenant1-admin
+      kind: User
+---
+apiVersion: capsule.clastix.io/v1beta2
+kind: Tenant
+metadata:
+  name: tenant2
+spec:
+  owners:
+    - name: tenant2-admin
+      kind: User

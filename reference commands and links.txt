@@ -18,6 +18,9 @@ Step 4: configure grafana
 Step 5: apply the test service
 kubectl apply -f echo-server.yaml
 
+Tear down: Delete kind cluster
+kind create cluster --name sooraj-test
+
 References:
 Grafana setup:
 prometheus server url: http://prometheus-server.prometheus

@@ -17,10 +17,32 @@ Step 4: configure grafana
 Step 5: leave for 5 mins and then capture data points
 
 Step 6: install capsule
+  - kubectl apply -f https://raw.githubusercontent.com/clastix/capsule/master/config/install.yaml
+    - could give error on fist time deployment "error: resource mapping not found for name: "capsule-default" namespace: "capsule-system" from "https://raw.githubusercontent.com/clastix/capsule/master/config/install.yaml": no matches for kind "CapsuleConfiguration" in version "capsule.clastix.io/v1beta2" ensure CRDs are installed first"
+    - as per https://github.com/projectcapsule/capsule/issues/368#issuecomment-892735970, re-running the same kubectl should fix it..
     
 Step 7: leave for 5 mins and then capture data points
 
-Step 8: deploy the test services and enable istio injection on the namespaces
+Step 8: create tenants and deploy test services into them
+    - kubectl apply -f 1-create-tenants.yaml
+    
+    - use the 2-create-user.sh to create dummy user that can be used to test (source: https://github.com/projectcapsule/capsule/blob/main/hack/create-user.sh)
+        - chmod +x 2-create-user.sh
+        - sh ./2-create-user.sh tenant1-admin tenant1
+        - sh ./2-create-user.sh tenant2-admin tenant2
+
+    using the tenant users:
+    (has to the run from capsule directory)
+
+    Create tenant1 namespace and workload as tenant1-admin
+    - export KUBECONFIG=tenant1-admin-tenant1.kubeconfig
+    - kubectl create ns tenant1
+    - kubectl apply -f ../test-service/capsule/tenant1-echo-server.yaml
+
+    Create tenant2 namespace and workload as tenant2-admin
+    - export KUBECONFIG=tenant2-admin-tenant2.kubeconfig
+    - kubectl create ns tenant2
+    - kubectl apply -f ../test-service/capsule/tenant2-echo-server.yaml
     
 Step 9: run tests using locust
 locust runs:
