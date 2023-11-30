@@ -18,6 +18,7 @@ Step 5: leave for 5 mins and then capture data points
 
 Step 6: install istio
     - steps as per - https://istio.io/latest/docs/setup/getting-started/#download
+        (The Istio version used during this research was 1.19.0)
     - istioctl install --set profile=minimal -y
     (profile details - https://istio.io/latest/docs/setup/additional-setup/config-profiles/)
 
@@ -26,11 +27,12 @@ Step 7: leave for 5 mins and then capture data points
 Step 8: deploy the test services and enable istio injection on the namespaces
     - kubectl label namespace tenant1 istio-injection=enabled
     - kubectl label namespace tenant2 istio-injection=enabled
+    
+    - After the namespaces are labelled, the deployments need to be restarted for the istio-proxy sidecar to be injected.
 
 Step 9: run tests using locust
 locust runs:
-    - 1 user, span rate 1
-    - 10 users, span rate 0.1
-    - 30 users, span rate 0.1
+    - 10 users, span rate 0.1, 5 mins
+    - 20 users, span rate 0.1, 30 mins
 
 step 10: capture data points
