@@ -18,6 +18,14 @@ Consequently, this research aimed to implement a similar namespace-based tenant 
 * Workloads with Capsule operator performed **545** more Request Per Second (RPS).
 * Workloads with Capsule operator responded **2ms** faster.
 
+## Research Setup
+
+**Istio Cluster Setup**
+![Istio Setup](./istio-setup.png)
+
+**Capsule Cluster Setup**
+![Capsule Setup](./capsule-setup.png)
+
 ## Replicating the Setup
 
 ### Tools Used
