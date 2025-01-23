@@ -165,3 +165,4 @@ istio-1.19.0/
 *.crt
 *.key
 *.kubeconfig
+.DS_Store
