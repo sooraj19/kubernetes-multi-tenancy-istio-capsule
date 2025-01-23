@@ -30,8 +30,8 @@ Consequently, this research aimed to implement a similar namespace-based tenant 
 
 ### Steps to Replicate
 
-* Steps and commands to replicate the Istio service mesh based cluster setup - [link to setup instructions](./istio-cluster-setup.md)
-* Steps and commands to replicate the Capsule operator based cluster setup - [link to setup instructions](./capsule-cluster-setup.md)
+* Steps and commands to replicate the Istio service mesh-based cluster setup - [link to setup instructions](./istio-cluster-setup.md)
+* Steps and commands to replicate the Capsule operator-based cluster setup - [link to setup instructions](./capsule-cluster-setup.md)
 
 ## Research Poster (PDF)
 
